@@ -1,0 +1,3603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoundersHub Bharat Pro | Find Your Perfect Co-Founder</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== CSS RESET & VARIABLES ===== */
+        :root {
+            --primary-blue: #2563eb;
+            --primary-indigo: #4f46e5;
+            --primary-dark: #1e40af;
+            --accent-green: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-purple: #8b5cf6;
+            --accent-pink: #ec4899;
+            --dark-bg: #0f172a;
+            --light-bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --border-color: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 30px rgba(0,0,0,0.12);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== WELCOME ANIMATION ===== */
+        #welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-indigo));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s, transform 0.8s;
+        }
+
+        #welcome-screen.hidden {
+            opacity: 0;
+            transform: translateY(-100%);
+            pointer-events: none;
+        }
+
+        .welcome-logo {
+            font-size: 4rem;
+            color: white;
+            margin-bottom: 2rem;
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            0% { text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+            100% { text-shadow: 0 0 30px rgba(255,255,255,0.9); }
+        }
+
+        .welcome-title {
+            color: white;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            animation: fadeInUp 1s;
+        }
+
+        .welcome-subtitle {
+            color: rgba(255,255,255,0.8);
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            max-width: 600px;
+            animation: fadeInUp 1s 0.2s both;
+        }
+
+        .progress-bar {
+            width: 300px;
+            height: 6px;
+            background-color: rgba(255,255,255,0.2);
+            border-radius: 3px;
+            margin-bottom: 3rem;
+            overflow: hidden;
+            animation: fadeInUp 1s 0.4s both;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--accent-green);
+            width: 0%;
+            border-radius: 3px;
+            transition: width 2s ease-in-out;
+        }
+
+        .btn-welcome {
+            background-color: white;
+            color: var(--primary-dark);
+            border: none;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: fadeInUp 1s 0.6s both;
+        }
+
+        .btn-welcome:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== HEADER & NAVIGATION ===== */
+        header {
+            background-color: var(--card-bg);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 0;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: var(--accent-green);
+        }
+
+        .logo span {
+            color: var(--primary-blue);
+        }
+
+        .desktop-nav {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        @media (max-width: 992px) {
+            .desktop-nav {
+                display: none;
+            }
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 16px;
+            padding: 8px 0;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        .nav-links a.active {
+            color: var(--primary-blue);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary-blue);
+            border-radius: 2px;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            cursor: pointer;
+        }
+
+        @media (max-width: 992px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100vh;
+            background-color: var(--card-bg);
+            box-shadow: var(--shadow-lg);
+            padding: 30px;
+            z-index: 1001;
+            transition: right 0.3s ease;
+        }
+
+        .mobile-nav.active {
+            right: 0;
+        }
+
+        .mobile-nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .close-mobile-nav {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            cursor: pointer;
+        }
+
+        .mobile-nav-links {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .mobile-nav-links li {
+            margin-bottom: 20px;
+        }
+
+        .mobile-nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: block;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .mobile-auth-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 999;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .overlay.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* ===== BUTTON STYLES ===== */
+        .btn {
+            padding: 10px 24px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background-color: white;
+            color: var(--primary-blue);
+            border: 2px solid var(--primary-blue);
+        }
+
+        .btn-secondary:hover {
+            background-color: #f0f7ff;
+        }
+
+        .btn-accent {
+            background-color: var(--accent-green);
+            color: white;
+        }
+
+        .btn-accent:hover {
+            background-color: #0da271;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--text-dark);
+            border: 2px solid var(--border-color);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary-blue);
+            color: var(--primary-blue);
+        }
+
+        .btn-sm {
+            padding: 6px 16px;
+            font-size: 14px;
+        }
+
+        .btn-lg {
+            padding: 14px 32px;
+            font-size: 18px;
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        main {
+            min-height: calc(100vh - 300px);
+            padding: 40px 0;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .page-header {
+            margin-bottom: 40px;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--dark-bg);
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 700px;
+        }
+
+        /* ===== HOME PAGE ===== */
+        .hero {
+            background: linear-gradient(135deg, #f0f7ff 0%, #e6f7ff 100%);
+            border-radius: var(--radius-lg);
+            padding: 60px 40px;
+            text-align: center;
+            margin-bottom: 60px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            margin-bottom: 20px;
+            color: var(--dark-bg);
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        .trust-section {
+            background-color: white;
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            box-shadow: var(--shadow-md);
+            margin: 60px 0;
+            text-align: center;
+        }
+
+        .trust-logos {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .trust-logo {
+            width: 120px;
+            height: 60px;
+            background-color: #f8fafc;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--text-light);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius-md);
+            padding: 30px;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            border-top: 4px solid var(--primary-blue);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-card i {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-blue);
+        }
+
+        .feature-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        .testimonials {
+            margin-top: 80px;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .testimonial-card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius-md);
+            padding: 30px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .testimonial-content {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary-blue);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        /* ===== DASHBOARD PAGE ===== */
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .dashboard-sidebar {
+            background-color: var(--card-bg);
+            border-radius: var(--radius-md);
+            padding: 25px;
+            box-shadow: var(--shadow-md);
+            height: fit-content;
+        }
+
+        .user-profile {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: var(--primary-blue);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 0 auto 15px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            color: var(--text-dark);
+            transition: var(--transition);
+        }
+
+        .sidebar-menu a:hover, .sidebar-menu a.active-menu {
+            background-color: #f0f7ff;
+            color: var(--primary-blue);
+        }
+
+        .dashboard-content {
+            display: grid;
+            gap: 30px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .dashboard-card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius-md);
+            padding: 25px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .dashboard-card h3 {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stat-card {
+            border-left: 4px solid var(--accent-green);
+        }
+
+        .match-card {
+            border-left: 4px solid var(--primary-blue);
+        }
+
+        .message-card {
+            border-left: 4px solid var(--accent-amber);
+        }
+
+        .progress-card {
+            border-left: 4px solid var(--accent-purple);
+        }
+
+        .match-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .match-item:last-child {
+            border-bottom: none;
+        }
+
+        .match-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        .match-score {
+            display: inline-block;
+            padding: 3px 10px;
+            background-color: #dcfce7;
+            color: #166534;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .progress-bar-container {
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background-color: #e2e8f0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--accent-green);
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+
+        /* ===== DISCOVERY PAGE ===== */
+        .search-filter-container {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 300px;
+            padding: 12px 20px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .founders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .founder-card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius-md);
+            padding: 25px;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+        }
+
+        .founder-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .founder-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .founder-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .founder-role {
+            color: var(--primary-blue);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .founder-location {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .founder-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .tag {
+            background-color: #f0f7ff;
+            color: var(--primary-blue);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .founder-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* ===== IDEA ROOM ===== */
+        .idea-room-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .ideas-grid {
+            display: grid;
+            gap: 30px;
+        }
+
+        .idea-card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius-md);
+            padding: 30px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .idea-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .idea-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .idea-category {
+            display: inline-block;
+            background-color: rgba(37, 99, 235, 0.1);
+            color: var(--primary-blue);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .ai-badge {
+            display: inline-block;
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--accent-green);
+            padding: 4px 10px;
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .idea-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .idea-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .like-btn, .comment-btn {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .like-btn:hover, .comment-btn:hover {
+            color: var(--primary-blue);
+        }
+
+        .like-btn.liked {
+            color: var(--accent-pink);
+        }
+
+        /* ===== LEGAL KIT ===== */
+        .legal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .legal-card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius-md);
+            padding: 30px;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+        }
+
+        .legal-icon {
+            font-size: 3rem;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+        }
+
+        .legal-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .legal-card p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        .calculator-container {
+            background-color: var(--card-bg);
+            border-radius: var(--radius-md);
+            padding: 40px;
+            box-shadow: var(--shadow-md);
+            margin-top: 50px;
+        }
+
+        .calculator-inputs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .input-group input[type="range"] {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .calculator-result {
+            text-align: center;
+            padding: 30px;
+            background-color: #f8fafc;
+            border-radius: var(--radius-md);
+            margin-top: 30px;
+        }
+
+        .equity-chart {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: conic-gradient(
+                var(--primary-blue) 0% 60%,
+                var(--accent-green) 60% 100%
+            );
+            margin: 20px auto;
+        }
+
+        /* ===== INVESTOR MATCHMAKING ===== */
+        .investor-filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .investor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .investor-card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius-md);
+            padding: 30px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .investor-type {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .investor-type.angel {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+
+        .investor-type.vc {
+            background-color: #dbeafe;
+            color: #1e40af;
+        }
+
+        .upload-area {
+            border: 2px dashed var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 30px;
+        }
+
+        .upload-area:hover {
+            border-color: var(--primary-blue);
+            background-color: #f8fafc;
+        }
+
+        /* ===== TEAM BUILDER ===== */
+        .team-builder-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .roles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .role-card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius-md);
+            padding: 25px;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .role-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .role-icon {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+
+        .people-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        /* ===== PROFILE PAGE ===== */
+        .profile-header {
+            display: flex;
+            gap: 40px;
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .profile-avatar-large {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: var(--primary-blue);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .profile-info h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .verified-badges {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .verified-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background-color: #dcfce7;
+            color: #166534;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .dna-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        .dna-item {
+            padding: 15px;
+            background-color: #f8fafc;
+            border-radius: var(--radius-md);
+        }
+
+        .dna-label {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .dna-value {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .personality-report {
+            background-color: var(--card-bg);
+            border-radius: var(--radius-md);
+            padding: 40px;
+            box-shadow: var(--shadow-md);
+            margin-top: 40px;
+        }
+
+        .report-section {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .report-section:last-child {
+            border-bottom: none;
+        }
+
+        .report-title {
+            color: var(--primary-blue);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .report-content {
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* ===== FEATURES PAGE ===== */
+        .features-grid-detailed {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-item {
+            background-color: var(--card-bg);
+            border-radius: var(--radius-md);
+            padding: 30px;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-icon-wrapper {
+            width: 70px;
+            height: 70px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .ai-score .feature-icon-wrapper {
+            background-color: #dbeafe;
+            color: var(--primary-blue);
+        }
+
+        .virtual-dating .feature-icon-wrapper {
+            background-color: #f0f9ff;
+            color: #0ea5e9;
+        }
+
+        .equity-tool .feature-icon-wrapper {
+            background-color: #f0fdf4;
+            color: var(--accent-green);
+        }
+
+        .legal-assistant .feature-icon-wrapper {
+            background-color: #f5f3ff;
+            color: var(--accent-purple);
+        }
+
+        .feature-status {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+
+        .status-live {
+            background-color: #dcfce7;
+            color: #166534;
+        }
+
+        .status-beta {
+            background-color: #dbeafe;
+            color: #1e40af;
+        }
+
+        .status-soon {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+
+        /* ===== PRICING PAGE ===== */
+        .pricing-plans {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .pricing-card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius-md);
+            padding: 40px 30px;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .pricing-card.popular {
+            border: 2px solid var(--primary-blue);
+            transform: scale(1.05);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 6px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--dark-bg);
+            margin: 20px 0;
+        }
+
+        .price span {
+            font-size: 1rem;
+            color: var(--text-light);
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pricing-features i {
+            color: var(--accent-green);
+        }
+
+        .offer-banner {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            background: linear-gradient(135deg, #f0f7ff, #e6f7ff);
+            border-radius: var(--radius-md);
+        }
+
+        /* ===== MODALS ===== */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1002;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            border-radius: var(--radius-md);
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--dark-bg);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            color: var(--text-dark);
+        }
+
+        .modal-body {
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        /* ===== NOTIFICATION SYSTEM ===== */
+        .notification {
+            position: fixed;
+            top: 90px;
+            right: 20px;
+            background-color: var(--accent-green);
+            color: white;
+            padding: 15px 25px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+            z-index: 1003;
+            display: none;
+            animation: slideInRight 0.3s ease;
+            max-width: 350px;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .notification.error {
+            background-color: var(--error);
+        }
+
+        .notification.warning {
+            background-color: var(--warning);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background-color: var(--dark-bg);
+            color: white;
+            padding: 60px 0 30px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .footer-links h4 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom a {
+            color: #94a3b8;
+            text-decoration: none;
+        }
+
+        .footer-bottom a:hover {
+            color: white;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 1200px) {
+            .container {
+                padding: 0 30px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .dashboard-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .features-grid,
+            .features-grid-detailed,
+            .founders-grid,
+            .legal-grid,
+            .investor-grid,
+            .people-grid,
+            .pricing-plans {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+            
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 40px 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .features-grid,
+            .features-grid-detailed,
+            .founders-grid,
+            .legal-grid,
+            .investor-grid,
+            .people-grid,
+            .pricing-plans {
+                grid-template-columns: 1fr;
+            }
+            
+            .search-filter-container {
+                flex-direction: column;
+            }
+            
+            .search-box {
+                min-width: 100%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .modal-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== WELCOME ANIMATION ===== -->
+    <div id="welcome-screen">
+        <div class="welcome-logo">
+            <i class="fas fa-handshake"></i>
+        </div>
+        <h1 class="welcome-title">Welcome to FoundersHub Bharat Pro</h1>
+        <p class="welcome-subtitle">India's most trusted platform for founder matching and startup success</p>
+        <div class="progress-bar">
+            <div class="progress-fill" id="welcome-progress"></div>
+        </div>
+        <button class="btn-welcome" id="enter-platform">
+            <i class="fas fa-rocket"></i> Enter Platform
+        </button>
+    </div>
+
+    <!-- ===== HEADER ===== -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo" data-page="home">
+                <i class="fas fa-handshake"></i>
+                <span>FoundersHub</span> Bharat Pro
+            </a>
+
+            <nav class="desktop-nav">
+                <ul class="nav-links">
+                    <li><a href="#" class="active" data-page="home">Home</a></li>
+                    <li><a href="#" data-page="dashboard">Dashboard</a></li>
+                    <li><a href="#" data-page="discovery">Discovery</a></li>
+                    <li><a href="#" data-page="idea-room">Idea Room</a></li>
+                    <li><a href="#" data-page="legal-kit">Legal Kit</a></li>
+                    <li><a href="#" data-page="investor-matchmaking">Investors</a></li>
+                    <li><a href="#" data-page="team-builder">Team Builder</a></li>
+                    <li><a href="#" data-page="profile">Profile</a></li>
+                    <li><a href="#" data-page="features">For Founders</a></li>
+                    <li><a href="#" data-page="pricing">Pricing</a></li>
+                </ul>
+                <div class="auth-buttons">
+                    <button class="btn btn-secondary" id="signin-btn">Sign In</button>
+                    <button class="btn btn-primary" id="signup-btn">Get Started Free</button>
+                </div>
+            </nav>
+
+            <button class="mobile-menu-btn" id="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- ===== MOBILE NAVIGATION ===== -->
+    <div class="mobile-nav" id="mobile-nav">
+        <div class="mobile-nav-header">
+            <div class="logo">
+                <i class="fas fa-handshake"></i>
+                <span>FoundersHub</span>
+            </div>
+            <button class="close-mobile-nav" id="close-mobile-nav">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="mobile-nav-links">
+            <li><a href="#" data-page="home">Home</a></li>
+            <li><a href="#" data-page="dashboard">Dashboard</a></li>
+            <li><a href="#" data-page="discovery">Discovery</a></li>
+            <li><a href="#" data-page="idea-room">Idea Room</a></li>
+            <li><a href="#" data-page="legal-kit">Legal Kit</a></li>
+            <li><a href="#" data-page="investor-matchmaking">Investors</a></li>
+            <li><a href="#" data-page="team-builder">Team Builder</a></li>
+            <li><a href="#" data-page="profile">Profile</a></li>
+            <li><a href="#" data-page="features">For Founders</a></li>
+            <li><a href="#" data-page="pricing">Pricing</a></li>
+        </ul>
+        <div class="mobile-auth-buttons">
+            <button class="btn btn-secondary" id="mobile-signin-btn">Sign In</button>
+            <button class="btn btn-primary" id="mobile-signup-btn">Get Started Free</button>
+        </div>
+    </div>
+    <div class="overlay" id="overlay"></div>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="container">
+        <!-- Home Page -->
+        <div class="page active" id="home-page">
+            <section class="hero">
+                <h1>Find Your Perfect Co-Founder in India</h1>
+                <p>AI-powered matching connects technical and business founders based on complementary skills, personality, vision, and startup goals. Join India's fastest growing founder community.</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary btn-lg" id="find-cofounder-btn">Find My Co-Founder</button>
+                    <button class="btn btn-secondary btn-lg" id="compatibility-quiz-btn">Take Compatibility Quiz</button>
+                </div>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-number" id="founders-count">0</div>
+                        <div class="stat-label">Founders Joined</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="matches-count">0</div>
+                        <div class="stat-label">Successful Matches</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="startups-count">0</div>
+                        <div class="stat-label">Startups Launched</div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="trust-section">
+                <h2>Trusted by Indian Founders & Investors</h2>
+                <div class="trust-logos">
+                    <div class="trust-logo">Forbes India</div>
+                    <div class="trust-logo">YourStory</div>
+                    <div class="trust-logo">Inc42</div>
+                    <div class="trust-logo">Economic Times</div>
+                </div>
+            </div>
+
+            <div class="page-header">
+                <h2>How FoundersHub Works</h2>
+                <p>Our platform uses advanced algorithms and human insight to create meaningful founder connections</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-brain"></i>
+                    <h3>AI Compatibility Score</h3>
+                    <p>Our algorithm analyzes 50+ factors to predict co-founder success beyond just skills.</p>
+                    <button class="btn btn-primary try-feature" data-feature="ai-score">Try AI Matching</button>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-video"></i>
+                    <h3>Virtual Co-Founder Dating</h3>
+                    <p>Structured 25-minute video sessions with guided conversation prompts and feedback.</p>
+                    <button class="btn btn-primary try-feature" data-feature="virtual-dating">Schedule a Session</button>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-chart-pie"></i>
+                    <h3>Equity Split Calculator</h3>
+                    <p>Interactive tool to model fair equity splits based on contribution, time, and capital.</p>
+                    <button class="btn btn-primary try-feature" data-feature="equity-tool">Open Calculator</button>
+                </div>
+            </div>
+
+            <div class="testimonials">
+                <div class="page-header">
+                    <h2>Success Stories</h2>
+                    <p>Hear from founders who found their perfect match on our platform</p>
+                </div>
+                <div class="testimonial-grid">
+                    <div class="testimonial-card">
+                        <p class="testimonial-content">"Found my technical co-founder in 2 weeks. We've now raised our seed round and are building the future of edtech in India."</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">RK</div>
+                            <div>
+                                <h4>Rahul Kumar</h4>
+                                <p>CEO, EdTech Startup</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p class="testimonial-content">"The AI matching was spot on. My co-founder and I complement each other perfectly. Couldn't have asked for a better partner."</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">PM</div>
+                            <div>
+                                <h4>Priya Mehta</h4>
+                                <p>CTO, FinTech Startup</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Page -->
+        <div class="page" id="dashboard-page">
+            <div class="page-header">
+                <h1>Your Founder Dashboard</h1>
+                <p>Welcome back, <span id="dashboard-username">Alex</span>! Here are your matches, messages, and progress.</p>
+            </div>
+
+            <div class="dashboard-container">
+                <div class="dashboard-sidebar">
+                    <div class="user-profile">
+                        <div class="avatar" id="user-avatar">A</div>
+                        <h3 id="user-name">Alex Chen</h3>
+                        <p id="user-role">Technical Founder</p>
+                        <div class="match-score">Profile 85% Complete</div>
+                    </div>
+                    <ul class="sidebar-menu">
+                        <li><a href="#" class="active-menu"><i class="fas fa-home"></i> Dashboard</a></li>
+                        <li><a href="#" data-page="discovery"><i class="fas fa-user-friends"></i> My Matches</a></li>
+                        <li><a href="#"><i class="fas fa-comments"></i> Messages <span class="badge">3</span></a></li>
+                        <li><a href="#" data-page="profile"><i class="fas fa-cog"></i> Profile Settings</a></li>
+                        <li><a href="#"><i class="fas fa-chart-line"></i> Analytics</a></li>
+                        <li><a href="#"><i class="fas fa-question-circle"></i> Help Center</a></li>
+                    </ul>
+                </div>
+
+                <div class="dashboard-content">
+                    <div class="dashboard-grid">
+                        <div class="dashboard-card stat-card">
+                            <h3><i class="fas fa-bullseye"></i> New Match Suggestions</h3>
+                            <div class="stat-number">12</div>
+                            <p class="stat-label">+3 today</p>
+                        </div>
+                        <div class="dashboard-card stat-card">
+                            <h3><i class="fas fa-eye"></i> Profile Views</h3>
+                            <div class="stat-number">142</div>
+                            <p class="stat-label">Top 5% this week</p>
+                        </div>
+                        <div class="dashboard-card stat-card">
+                            <h3><i class="fas fa-comment"></i> Active Chats</h3>
+                            <div class="stat-number">3</div>
+                            <p class="stat-label">1 new message</p>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card match-card">
+                        <h3><i class="fas fa-heart"></i> Recommended for You</h3>
+                        <div class="match-item">
+                            <div class="match-avatar">PS</div>
+                            <div>
+                                <h4>Priya Sharma</h4>
+                                <p>Marketing Expert | SaaS</p>
+                                <div class="match-score">94% Match</div>
+                            </div>
+                            <button class="btn btn-primary btn-sm connect-btn" data-name="Priya Sharma">Connect</button>
+                        </div>
+                        <div class="match-item">
+                            <div class="match-avatar">RM</div>
+                            <div>
+                                <h4>Rahul Mehta</h4>
+                                <p>Business Strategist | FinTech</p>
+                                <div class="match-score">88% Match</div>
+                            </div>
+                            <button class="btn btn-primary btn-sm connect-btn" data-name="Rahul Mehta">Connect</button>
+                        </div>
+                        <div class="match-item">
+                            <div class="match-avatar">SP</div>
+                            <div>
+                                <h4>Sanjay Patel</h4>
+                                <p>Product Designer | EdTech</p>
+                                <div class="match-score">82% Match</div>
+                            </div>
+                            <button class="btn btn-primary btn-sm connect-btn" data-name="Sanjay Patel">Connect</button>
+                        </div>
+                        <button class="btn btn-secondary" style="width: 100%; margin-top: 15px;">View All Matches</button>
+                    </div>
+
+                    <div class="dashboard-card progress-card">
+                        <h3><i class="fas fa-tasks"></i> Your Progress</h3>
+                        <p><strong>Profile Strength:</strong> <span id="profile-strength">85</span>%</p>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="profile-progress" style="width: 85%;"></div>
+                            </div>
+                        </div>
+                        <p><strong>Connections This Month:</strong> 7/10</p>
+                        <p><strong>Upcoming Meetings:</strong> 2</p>
+                        <p><strong>Skill Exchange Credits:</strong> 12</p>
+                        <button class="btn btn-accent" style="width: 100%; margin-top: 20px;" id="complete-profile-btn">Complete Profile</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Discovery Page -->
+        <div class="page" id="discovery-page">
+            <div class="page-header">
+                <h1>Discover Founders</h1>
+                <p>Find the right partner based on skills, vision, and chemistry</p>
+            </div>
+
+            <div class="search-filter-container">
+                <input type="text" class="search-box" placeholder="Search by skill, location, or industry...">
+                <button class="btn btn-outline" id="filter-btn">
+                    <i class="fas fa-sliders-h"></i> Filters
+                </button>
+                <button class="btn btn-primary" id="advanced-search-btn">
+                    <i class="fas fa-search"></i> Advanced Search
+                </button>
+            </div>
+
+            <div class="founders-grid">
+                <div class="founder-card">
+                    <div class="founder-header">
+                        <div>
+                            <div class="founder-name">Ankit Sharma</div>
+                            <div class="founder-role">Technical (CTO) • Bangalore</div>
+                            <div class="founder-location">Ex-Google Engineer. Building next-gen AI CRM for SMEs.</div>
+                        </div>
+                        <div class="match-score">94% Match</div>
+                    </div>
+                    <div class="founder-tags">
+                        <span class="tag">SAAS</span>
+                        <span class="tag">AI/ML</span>
+                        <span class="tag">React</span>
+                        <span class="tag">Node.js</span>
+                        <span class="tag">Python</span>
+                    </div>
+                    <div class="founder-actions">
+                        <button class="btn btn-primary" style="flex: 1;">View Profile</button>
+                        <button class="btn btn-outline say-hi-btn" style="flex: 1;" data-name="Ankit Sharma">Say Hi</button>
+                    </div>
+                </div>
+
+                <div class="founder-card">
+                    <div class="founder-header">
+                        <div>
+                            <div class="founder-name">Priya Iyer</div>
+                            <div class="founder-role">Business (CEO) • Mumbai</div>
+                            <div class="founder-location">MBA Grad from ISB. Passionate about financial inclusion in rural India.</div>
+                        </div>
+                        <div class="match-score">88% Match</div>
+                    </div>
+                    <div class="founder-tags">
+                        <span class="tag">FINTECH</span>
+                        <span class="tag">Strategy</span>
+                        <span class="tag">Operations</span>
+                        <span class="tag">Finance</span>
+                    </div>
+                    <div class="founder-actions">
+                        <button class="btn btn-primary" style="flex: 1;">View Profile</button>
+                        <button class="btn btn-outline say-hi-btn" style="flex: 1;" data-name="Priya Iyer">Say Hi</button>
+                    </div>
+                </div>
+
+                <div class="founder-card">
+                    <div class="founder-header">
+                        <div>
+                            <div class="founder-name">Rahul Verma</div>
+                            <div class="founder-role">Design (CDO) • Pune</div>
+                            <div class="founder-location">Visual designer looking to build the next big learning platform.</div>
+                        </div>
+                        <div class="match-score">82% Match</div>
+                    </div>
+                    <div class="founder-tags">
+                        <span class="tag">UI/UX</span>
+                        <span class="tag">Figma</span>
+                        <span class="tag">Prototyping</span>
+                        <span class="tag">EdTech</span>
+                    </div>
+                    <div class="founder-actions">
+                        <button class="btn btn-primary" style="flex: 1;">View Profile</button>
+                        <button class="btn btn-outline say-hi-btn" style="flex: 1;" data-name="Rahul Verma">Say Hi</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Idea Room Page -->
+        <div class="page" id="idea-room-page">
+            <div class="idea-room-header">
+                <div class="page-header">
+                    <h1>Idea Validation Room</h1>
+                    <p>Post your ideas privately to find early believers and get feedback</p>
+                </div>
+                <button class="btn btn-primary" id="create-idea-btn">
+                    <i class="fas fa-plus"></i> Post New Idea
+                </button>
+            </div>
+
+            <div class="ideas-grid">
+                <div class="idea-card">
+                    <div class="idea-header">
+                        <div>
+                            <h3 class="idea-title">Hyper-local Delivery for Tiffin Services</h3>
+                            <span class="idea-category">FOODTECH</span>
+                        </div>
+                        <div class="ai-badge">AI ANALYZED</div>
+                    </div>
+                    <p>Looking for early feedback on technical feasibility and market entry strategy. Specifically interested in how to handle last-mile logistics in Tier 2 cities.</p>
+                    <div class="idea-meta">
+                        <div><i class="far fa-user"></i> Posted by Varun K.</div>
+                        <div><i class="far fa-clock"></i> 2 days ago</div>
+                    </div>
+                    <div class="idea-actions">
+                        <button class="btn btn-primary">Join Discussion</button>
+                        <button class="like-btn" data-id="1">
+                            <i class="far fa-heart"></i> <span class="like-count">24</span>
+                        </button>
+                        <button class="comment-btn">
+                            <i class="far fa-comment"></i> <span>8</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="idea-card">
+                    <div class="idea-header">
+                        <div>
+                            <h3 class="idea-title">AI-based Credit Scoring for Rural Farmers</h3>
+                            <span class="idea-category">FINTECH</span>
+                        </div>
+                        <div class="ai-badge">AI ANALYZED</div>
+                    </div>
+                    <p>Building an alternative credit scoring model using non-traditional data points for rural farmers with no formal credit history.</p>
+                    <div class="idea-meta">
+                        <div><i class="far fa-user"></i> Posted by Swati R.</div>
+                        <div><i class="far fa-clock"></i> 5 days ago</div>
+                    </div>
+                    <div class="idea-actions">
+                        <button class="btn btn-primary">Join Discussion</button>
+                        <button class="like-btn" data-id="2">
+                            <i class="far fa-heart"></i> <span class="like-count">56</span>
+                        </button>
+                        <button class="comment-btn">
+                            <i class="far fa-comment"></i> <span>15</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Legal Kit Page -->
+        <div class="page" id="legal-kit-page">
+            <div class="page-header">
+                <h1>Legal Starter Pack</h1>
+                <p>Protect yourself and your vision with India-specific templates</p>
+            </div>
+
+            <div class="legal-grid">
+                <div class="legal-card">
+                    <div class="legal-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Standard Co-Founder Agreement</h3>
+                    <p>Cover equity vesting, IP ownership, and exit terms.</p>
+                    <button class="btn btn-primary download-template" data-template="cofounder-agreement">
+                        Download Template (.docx)
+                    </button>
+                </div>
+
+                <div class="legal-card">
+                    <div class="legal-icon">
+                        <i class="fas fa-file-signature"></i>
+                    </div>
+                    <h3>Mutual NDA Template</h3>
+                    <p>Protect your startup secrets before deep collaboration.</p>
+                    <button class="btn btn-primary download-template" data-template="nda">
+                        Download Template (.docx)
+                    </button>
+                </div>
+
+                <div class="legal-card">
+                    <div class="legal-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Founder Vesting Schedule</h3>
+                    <p>Simple 4-year vesting with 1-year cliff template.</p>
+                    <button class="btn btn-primary download-template" data-template="vesting-schedule">
+                        Download Template (.docx)
+                    </button>
+                </div>
+
+                <div class="legal-card">
+                    <div class="legal-icon">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                    </div>
+                    <h3>Pre-seed Term Sheet</h3>
+                    <p>Indian standard format for friends and family round.</p>
+                    <button class="btn btn-primary download-template" data-template="term-sheet">
+                        Download Template (.docx)
+                    </button>
+                </div>
+            </div>
+
+            <div class="calculator-container">
+                <h2>Equity Fairness Calculator</h2>
+                <p>Not sure how much equity to give? Use our AI-powered calculator to get a suggested split based on time, skills, and idea ownership.</p>
+                
+                <div class="calculator-inputs">
+                    <div class="input-group">
+                        <label for="founder-a-contribution">Founder A Contribution (%)</label>
+                        <input type="range" id="founder-a-contribution" min="0" max="100" value="60">
+                        <span id="founder-a-value">60%</span>
+                    </div>
+                    <div class="input-group">
+                        <label for="founder-b-contribution">Founder B Contribution (%)</label>
+                        <input type="range" id="founder-b-contribution" min="0" max="100" value="40">
+                        <span id="founder-b-value">40%</span>
+                    </div>
+                </div>
+
+                <div class="calculator-result">
+                    <h3>Recommended Equity Split</h3>
+                    <div class="equity-chart"></div>
+                    <div class="equity-split">
+                        <p>Founder A: <strong id="equity-a">60%</strong></p>
+                        <p>Founder B: <strong id="equity-b">40%</strong></p>
+                    </div>
+                    <button class="btn btn-primary" id="download-equity-summary">Download Summary</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Investor Matchmaking Page -->
+        <div class="page" id="investor-matchmaking-page">
+            <div class="page-header">
+                <h1>Investor Matchmaking</h1>
+                <p>Connect with angel investors and VCs for your startup</p>
+            </div>
+
+            <div class="investor-filters">
+                <select class="search-box" id="investor-type-filter">
+                    <option value="all">All Investor Types</option>
+                    <option value="angel">Angel Investors</option>
+                    <option value="vc">Venture Capital</option>
+                    <option value="seed">Seed Funds</option>
+                </select>
+                <select class="search-box" id="stage-filter">
+                    <option value="all">All Stages</option>
+                    <option value="pre-seed">Pre-seed</option>
+                    <option value="seed">Seed</option>
+                    <option value="series-a">Series A</option>
+                </select>
+                <button class="btn btn-primary" id="apply-filters">Apply Filters</button>
+            </div>
+
+            <div class="investor-grid">
+                <div class="investor-card">
+                    <div class="investor-type angel">Angel Investor</div>
+                    <h3>Rajesh Mehta</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Mumbai</p>
+                    <p><i class="fas fa-industry"></i> FinTech, SaaS, EdTech</p>
+                    <p><i class="fas fa-money-bill-wave"></i> ₹10L - ₹50L</p>
+                    <div class="founder-actions">
+                        <button class="btn btn-primary request-intro-btn" data-name="Rajesh Mehta">Request Intro</button>
+                        <button class="btn btn-outline">View Profile</button>
+                    </div>
+                </div>
+
+                <div class="investor-card">
+                    <div class="investor-type vc">VC Firm</div>
+                    <h3>Alpha Ventures</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Bangalore</p>
+                    <p><i class="fas fa-industry"></i> AI/ML, HealthTech, DeepTech</p>
+                    <p><i class="fas fa-money-bill-wave"></i> ₹50L - ₹5Cr</p>
+                    <div class="founder-actions">
+                        <button class="btn btn-primary request-intro-btn" data-name="Alpha Ventures">Request Intro</button>
+                        <button class="btn btn-outline">View Profile</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="upload-area" id="pitch-deck-upload">
+                <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: var(--text-light); margin-bottom: 20px;"></i>
+                <h3>Upload Your Pitch Deck</h3>
+                <p>Drag and drop your pitch deck here or click to browse</p>
+                <p style="font-size: 0.9rem; color: var(--text-light); margin-top: 10px;">Supported: PDF, PPT, PPTX (Max 20MB)</p>
+                <input type="file" id="pitch-deck-file" accept=".pdf,.ppt,.pptx" style="display: none;">
+            </div>
+            <div id="uploaded-file-name" style="margin-top: 15px; display: none;"></div>
+        </div>
+
+        <!-- Team Builder Page -->
+        <div class="page" id="team-builder-page">
+            <div class="team-builder-header">
+                <div class="page-header">
+                    <h1>Team Builder</h1>
+                    <p>Find and invite the right talent to join your startup</p>
+                </div>
+                <button class="btn btn-primary" id="create-team-post-btn">
+                    <i class="fas fa-plus"></i> Create Team Post
+                </button>
+            </div>
+
+            <div class="roles-grid">
+                <div class="role-card">
+                    <div class="role-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>CTO / Tech Lead</h3>
+                    <p>Technical leadership, architecture, development</p>
+                    <button class="btn btn-primary">Browse</button>
+                </div>
+                <div class="role-card">
+                    <div class="role-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>CMO / Growth</h3>
+                    <p>Marketing, user acquisition, growth strategy</p>
+                    <button class="btn btn-primary">Browse</button>
+                </div>
+                <div class="role-card">
+                    <div class="role-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3>Product Designer</h3>
+                    <p>UI/UX, prototyping, user research</p>
+                    <button class="btn btn-primary">Browse</button>
+                </div>
+                <div class="role-card">
+                    <div class="role-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <h3>Legal Advisor</h3>
+                    <p>Compliance, contracts, fundraising</p>
+                    <button class="btn btn-primary">Browse</button>
+                </div>
+            </div>
+
+            <div class="page-header">
+                <h2>Available Team Members</h2>
+            </div>
+
+            <div class="people-grid">
+                <div class="founder-card">
+                    <div class="founder-header">
+                        <div>
+                            <div class="founder-name">Amit Kumar</div>
+                            <div class="founder-role">Senior Full-Stack Developer</div>
+                            <div class="founder-location">5+ years experience, React, Node.js, AWS</div>
+                        </div>
+                    </div>
+                    <div class="founder-tags">
+                        <span class="tag">React</span>
+                        <span class="tag">Node.js</span>
+                        <span class="tag">AWS</span>
+                        <span class="tag">MongoDB</span>
+                    </div>
+                    <div class="founder-actions">
+                        <button class="btn btn-primary invite-team-btn" data-name="Amit Kumar">Invite to Team</button>
+                        <button class="btn btn-outline schedule-call-btn">Schedule Call</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Page -->
+        <div class="page" id="profile-page">
+            <div class="profile-header">
+                <div class="profile-avatar-large" id="profile-avatar">AG</div>
+                <div class="profile-info">
+                    <h2 id="profile-fullname">Aditya Gupta</h2>
+                    <div class="founder-role">Business (CEO) • Delhi NCR</div>
+                    <div class="verified-badges">
+                        <span class="verified-badge"><i class="fab fa-linkedin"></i> LinkedIn Verified</span>
+                        <span class="verified-badge"><i class="fas fa-graduation-cap"></i> IIT Delhi Verified</span>
+                        <span class="verified-badge"><i class="fas fa-phone"></i> Phone Verified</span>
+                    </div>
+                    <p>I'm a seasoned business professional looking for a technical co-founder to build a disruptive fintech startup. Focusing on Tier-2 and Tier-3 credit accessibility.</p>
+                    <div class="dna-grid">
+                        <div class="dna-item">
+                            <div class="dna-label">Stage</div>
+                            <div class="dna-value">Ideation</div>
+                        </div>
+                        <div class="dna-item">
+                            <div class="dna-label">Commitment</div>
+                            <div class="dna-value">Full-time</div>
+                        </div>
+                        <div class="dna-item">
+                            <div class="dna-label">Equity Ask</div>
+                            <div class="dna-value">30-50%</div>
+                        </div>
+                        <div class="dna-item">
+                            <div class="dna-label">Experience</div>
+                            <div class="dna-value">8 years</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn btn-primary" id="edit-profile-btn" style="margin-bottom: 30px;">
+                <i class="fas fa-edit"></i> Edit Profile
+            </button>
+
+            <div class="personality-report">
+                <h2 style="margin-bottom: 1.5rem;">Founder Personality Report</h2>
+                <p style="color: var(--text-light); margin-bottom: 2rem;">AI-generated analysis of your leadership and risk profile.</p>
+                
+                <div class="report-section">
+                    <div class="report-title">PERSONALITY ALIGNMENT</div>
+                    <div class="report-content">Analytical and strategically driven leader with a high degree of intellectual rigor typical of the IIT Delhi environment. Exhibits a blend of technical depth and business intuition.</div>
+                </div>
+                
+                <div class="report-section">
+                    <div class="report-title">EXECUTION STYLE</div>
+                    <div class="report-content">A balanced visionary-executor who prioritizes building scalable systems and frameworks to realize long-term strategic goals.</div>
+                </div>
+                
+                <div class="report-section">
+                    <div class="report-title">RISK TOLERANCE</div>
+                    <div class="report-content">Calculated and systematic; prefers making high-stakes decisions backed by data and logical frameworks rather than pure intuition.</div>
+                </div>
+                
+                <div class="report-section">
+                    <div class="report-title">CONFLICT HANDLING</div>
+                    <div class="report-content">Objective and meritocratic; addresses disagreements through data-driven reasoning and seeks resolution that optimizes for business outcomes over personal dynamics.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- For Founders Page -->
+         <div class="page" id="for-founders-page">
+            <div class="page-header">
+                <h1>Resources & Support for Founders</h1>
+                <p>Tools, guides, and community support to help you on your founder journey</p>
+            </div>
+            
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>Founder Education</h3>
+                    <p>Access our library of guides on equity splits, founder agreements, pitching, and more.</p>
+                    <button class="btn btn-primary">Browse Resources</button>
+                </div>
+                
+                <div class="resource-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Community Forums</h3>
+                    <p>Connect with other founders, ask questions, and share experiences in our private community.</p>
+                    <button class="btn btn-primary">Join Community</button>
+                </div>
+                
+                <div class="resource-card">
+                    <i class="fas fa-calendar-check"></i>
+                    <h3>Events & Workshops</h3>
+                    <p>Weekly virtual events, pitch practices, and workshops with successful founders and investors.</p>
+                    <button class="btn btn-primary">View Events</button>
+                </div>
+                
+                <div class="resource-card">
+                    <i class="fas fa-microphone"></i>
+                    <h3>Founder Stories</h3>
+                    <p>Learn from successful Indian founder journeys with detailed case studies and interviews.</p>
+                    <button class="btn btn-primary">Watch Stories</button>
+                </div>
+                
+                <div class="resource-card">
+                    <i class="fas fa-tools"></i>
+                    <h3>Idea to MVP Builder</h3>
+                    <p>Step-by-step guide with no-code tools, Indian developer marketplace, and grant assistance.</p>
+                    <button class="btn btn-primary">Start Building</button>
+                </div>
+                
+                <div class="resource-card">
+                    <i class="fas fa-handshake"></i>
+                    <h3>Investor Matchmaking</h3>
+                    <p>Get connected with Indian angel investors and VCs based on your sector, stage, and location.</p>
+                    <button class="btn btn-primary">Meet Investors</button>
+                </div>
+            </div>
+        </div>
+        <div class="page" id="features-page">
+            <div class="page-header">
+                <h1>Powerful Features for Founder Success</h1>
+                <p>Everything you need to find, vet, and partner with your ideal co-founder</p>
+            </div>
+
+            <div class="features-grid-detailed">
+                <div class="feature-item ai-score">
+                    <div class="feature-icon-wrapper">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>AI Co-Founder Compatibility Score</h3>
+                    <p>Advanced AI analyzes personality, work styles, values, and communication patterns to predict founder partnership success.</p>
+                    <div class="feature-status status-live">Live</div>
+                    <button class="btn btn-primary try-feature" data-feature="ai-score">Try AI Matching Now</button>
+                </div>
+                
+                <div class="feature-item virtual-dating">
+                    <div class="feature-icon-wrapper">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3>Virtual Co-Founder Dating</h3>
+                    <p>25-minute structured video sessions with AI-generated conversation prompts and post-meeting chemistry scoring.</p>
+                    <div class="feature-status status-live">Live</div>
+                    <button class="btn btn-primary try-feature" data-feature="virtual-dating">Schedule a Session</button>
+                </div>
+                
+                <div class="feature-item equity-tool">
+                    <div class="feature-icon-wrapper">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h3>Equity Split Negotiation Tool</h3>
+                    <p>Interactive calculator with dynamic sliders for time, capital, expertise, and idea ownership. Real-time equity pie charts.</p>
+                    <div class="feature-status status-beta">In Beta</div>
+                    <button class="btn btn-primary try-feature" data-feature="equity-tool">Open Equity Calculator</button>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon-wrapper" style="background-color: #fef3c7; color: #92400e;">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <h3>Founder Skill Exchange Marketplace</h3>
+                    <p>"I'll help with your pitch deck if you review my MVP." Hourly skill trading with verified badges and escrow system.</p>
+                    <div class="feature-status status-live">Live</div>
+                    <button class="btn btn-primary try-feature" data-feature="skill-marketplace">Browse Skills</button>
+                </div>
+                
+                <div class="feature-item legal-assistant">
+                    <div class="feature-icon-wrapper">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <h3>Indian Startup Legal AI Assistant</h3>
+                    <p>Chatbot trained on Indian Companies Act, startup policies, and state-specific regulations with compliance checklist generator.</p>
+                    <div class="feature-status status-soon">Coming Soon</div>
+                    <button class="btn btn-secondary try-feature" data-feature="legal-assistant">Join Waitlist</button>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon-wrapper" style="background-color: #fce7f3; color: #db2777;">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h3>Founder Mental Health & Wellness</h3>
+                    <p>Anonymous support groups, startup therapists, stress assessment tools, and meditation resources tailored for founders.</p>
+                    <div class="feature-status status-live">Live</div>
+                    <button class="btn btn-primary try-feature" data-feature="wellness">Explore Wellness</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pricing Page -->
+        <div class="page" id="pricing-page">
+            <div class="page-header">
+                <h1>Simple, Transparent Pricing</h1>
+                <p>Start for free, upgrade as you grow. No long-term contracts.</p>
+            </div>
+
+            <div class="pricing-plans">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Founder</h3>
+                        <p>For individual founders starting their journey</p>
+                    </div>
+                    <div class="price">₹0<span>/month</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Basic profile & matching</li>
+                        <li><i class="fas fa-check"></i> 5 monthly connections</li>
+                        <li><i class="fas fa-check"></i> In-app messaging</li>
+                        <li><i class="fas fa-check"></i> Basic search filters</li>
+                        <li><i class="fas fa-times"></i> <span style="color: var(--text-light);">AI compatibility scoring</span></li>
+                        <li><i class="fas fa-times"></i> <span style="color: var(--text-light);">Virtual dating sessions</span></li>
+                    </ul>
+                    <button class="btn btn-secondary signup-btn" data-plan="founder">Get Started Free</button>
+                </div>
+                
+                <div class="pricing-card popular">
+                    <div class="popular-badge">MOST POPULAR</div>
+                    <div class="pricing-header">
+                        <h3>Startup</h3>
+                        <p>For serious founders ready to partner</p>
+                    </div>
+                    <div class="price">₹999<span>/month</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Everything in Founder</li>
+                        <li><i class="fas fa-check"></i> Unlimited connections</li>
+                        <li><i class="fas fa-check"></i> AI compatibility scores</li>
+                        <li><i class="fas fa-check"></i> Virtual dating sessions</li>
+                        <li><i class="fas fa-check"></i> Equity split calculator</li>
+                        <li><i class="fas fa-check"></i> Skill exchange marketplace</li>
+                    </ul>
+                    <button class="btn btn-primary signup-btn" data-plan="startup">Start 7-Day Free Trial</button>
+                </div>
+                
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Venture</h3>
+                        <p>For teams & investors</p>
+                    </div>
+                    <div class="price">₹2,499<span>/month</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Everything in Startup</li>
+                        <li><i class="fas fa-check"></i> Team accounts (up to 5)</li>
+                        <li><i class="fas fa-check"></i> Investor matchmaking</li>
+                        <li><i class="fas fa-check"></i> Legal AI assistant</li>
+                        <li><i class="fas fa-check"></i> Digital equity management</li>
+                        <li><i class="fas fa-check"></i> Priority support</li>
+                    </ul>
+                    <button class="btn btn-secondary signup-btn" data-plan="venture">Contact Sales</button>
+                </div>
+            </div>
+
+            <div class="offer-banner">
+                <h3>Launch Special: First 1000 Users Get 50% Off for Life!</h3>
+                <p>Join FoundersHub Bharat today and lock in our special launch pricing forever.</p>
+                <button class="btn btn-accent" id="claim-offer-btn">Claim 50% Off Now</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- ===== MODALS ===== -->
+    <!-- Sign In Modal -->
+    <div class="modal" id="signin-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Sign In</h3>
+                <button class="close-modal" data-modal="signin-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" placeholder="you@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="••••••••">
+                </div>
+                <div style="text-align: right; margin-bottom: 20px;">
+                    <a href="#" style="color: var(--primary-blue); text-decoration: none;">Forgot password?</a>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-primary" id="signin-submit">Sign In</button>
+                <button class="btn btn-outline" data-modal="signin-modal">Cancel</button>
+            </div>
+            <p style="text-align: center; margin-top: 20px; color: var(--text-light);">
+                Don't have an account? <a href="#" style="color: var(--primary-blue); text-decoration: none;" id="switch-to-signup">Sign up</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div class="modal" id="signup-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Create Account</h3>
+                <button class="close-modal" data-modal="signup-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="signup-name">Full Name</label>
+                    <input type="text" id="signup-name" placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" placeholder="you@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" placeholder="••••••••">
+                </div>
+                <div class="form-group">
+                    <label for="signup-role">Primary Role</label>
+                    <select id="signup-role">
+                        <option value="">Select your role</option>
+                        <option value="technical">Technical Founder</option>
+                        <option value="business">Business Founder</option>
+                        <option value="designer">Designer</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-primary" id="signup-submit">Create Account</button>
+                <button class="btn btn-outline" data-modal="signup-modal">Cancel</button>
+            </div>
+            <p style="text-align: center; margin-top: 20px; color: var(--text-light);">
+                Already have an account? <a href="#" style="color: var(--primary-blue); text-decoration: none;" id="switch-to-signin">Sign in</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Say Hi Modal -->
+    <div class="modal" id="sayhi-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Send a Message</h3>
+                <button class="close-modal" data-modal="sayhi-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>You're about to send a message to <strong id="sayhi-founder-name">Ankit Sharma</strong>.</p>
+                <div class="form-group">
+                    <label for="message-text">Your Message</label>
+                    <textarea id="message-text" rows="4" placeholder="Hi! I saw your profile and think we might be a good match. Would you be interested in exploring a potential collaboration?"></textarea>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-primary" id="send-message-btn">Send Message</button>
+                <button class="btn btn-outline" data-modal="sayhi-modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Compatibility Quiz Modal -->
+    <div class="modal" id="quiz-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Founder Compatibility Quiz</h3>
+                <button class="close-modal" data-modal="quiz-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="quiz-step-1" class="quiz-step active">
+                    <h4>Question 1 of 5</h4>
+                    <p>How do you handle disagreements with co-founders?</p>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="q1" value="data">
+                            <span>Bring data and logic to the discussion</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q1" value="intuition">
+                            <span>Go with my gut feeling</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q1" value="collaborate">
+                            <span>Seek consensus through discussion</span>
+                        </label>
+                    </div>
+                </div>
+                <div id="quiz-step-2" class="quiz-step">
+                    <!-- More questions would go here -->
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-primary" id="next-question-btn">Next Question</button>
+                <button class="btn btn-outline" data-modal="quiz-modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Idea Modal -->
+    <div class="modal" id="create-idea-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Post New Idea</h3>
+                <button class="close-modal" data-modal="create-idea-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="idea-title">Idea Title</label>
+                    <input type="text" id="idea-title" placeholder="What problem are you solving?">
+                </div>
+                <div class="form-group">
+                    <label for="idea-category">Category</label>
+                    <select id="idea-category">
+                        <option value="">Select category</option>
+                        <option value="fintech">FinTech</option>
+                        <option value="edtech">EdTech</option>
+                        <option value="healthtech">HealthTech</option>
+                        <option value="saas">SaaS</option>
+                        <option value="ecommerce">E-commerce</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="idea-description">Description</label>
+                    <textarea id="idea-description" rows="5" placeholder="Describe your idea in detail..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="ai-analysis">
+                        Get AI analysis of my idea
+                    </label>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-primary" id="post-idea-btn">Post Idea</button>
+                <button class="btn btn-outline" data-modal="create-idea-modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Request Intro Modal -->
+    <div class="modal" id="request-intro-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Request Introduction</h3>
+                <button class="close-modal" data-modal="request-intro-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Request introduction to <strong id="intro-investor-name">Rajesh Mehta</strong></p>
+                <div class="form-group">
+                    <label for="intro-message">Introduction Message</label>
+                    <textarea id="intro-message" rows="4" placeholder="Why should this investor be interested in your startup?"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="intro-stage">Current Stage</label>
+                    <select id="intro-stage">
+                        <option value="ideation">Ideation</option>
+                        <option value="prototype">Prototype</option>
+                        <option value="mvvp">MVP</option>
+                        <option value="revenue">Early Revenue</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-primary" id="send-intro-request">Send Request</button>
+                <button class="btn btn-outline" data-modal="request-intro-modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div class="modal" id="edit-profile-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Edit Profile</h3>
+                <button class="close-modal" data-modal="edit-profile-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="edit-name">Full Name</label>
+                    <input type="text" id="edit-name" value="Aditya Gupta">
+                </div>
+                <div class="form-group">
+                    <label for="edit-role">Role</label>
+                    <input type="text" id="edit-role" value="Business (CEO)">
+                </div>
+                <div class="form-group">
+                    <label for="edit-location">Location</label>
+                    <input type="text" id="edit-location" value="Delhi NCR">
+                </div>
+                <div class="form-group">
+                    <label for="edit-bio">Bio</label>
+                    <textarea id="edit-bio" rows="4">I'm a seasoned business professional looking for a technical co-founder to build a disruptive fintech startup. Focusing on Tier-2 and Tier-3 credit accessibility.</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="edit-stage">Current Stage</label>
+                    <select id="edit-stage">
+                        <option value="ideation">Ideation</option>
+                        <option value="prototype" selected>Prototype</option>
+                        <option value="mvp">MVP</option>
+                        <option value="revenue">Early Revenue</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-primary" id="save-profile-btn">Save Changes</button>
+                <button class="btn btn-outline" data-modal="edit-profile-modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== NOTIFICATION ===== -->
+    <div class="notification" id="notification">
+        <span id="notification-text">Notification message here</span>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo">FoundersHub Bharat Pro</div>
+                    <p>India's #1 platform for founder matching and startup success.</p>
+                    <div style="margin-top: 20px;">
+                        <i class="fab fa-twitter" style="font-size: 1.5rem; margin-right: 15px; cursor: pointer;" id="twitter-icon"></i>
+                        <i class="fab fa-linkedin" style="font-size: 1.5rem; margin-right: 15px; cursor: pointer;" id="linkedin-icon"></i>
+                        <i class="fab fa-instagram" style="font-size: 1.5rem; cursor: pointer;" id="instagram-icon"></i>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#" data-page="features">Features</a></li>
+                        <li><a href="#" data-page="pricing">Pricing</a></li>
+                        <li><a href="#">Success Stories</a></li>
+                        <li><a href="#">Updates</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Founder Guides</a></li>
+                        <li><a href="#" data-page="legal-kit">Legal Templates</a></li>
+                        <li><a href="#">Community</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2024 FoundersHub Bharat Pro. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+                <p style="margin-top: 10px;">Made with ❤️ for Indian founders | <a href="#">Community Guidelines & Safety</a> | <a href="#">Data Privacy Promise</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ===== GLOBAL VARIABLES =====
+        let currentUser = JSON.parse(localStorage.getItem('founderhub_user')) || null;
+        let likedIdeas = JSON.parse(localStorage.getItem('liked_ideas')) || [];
+        let offerActivated = localStorage.getItem('offer_activated') === 'true';
+
+        // ===== WELCOME ANIMATION =====
+        document.addEventListener('DOMContentLoaded', () => {
+            const welcomeScreen = document.getElementById('welcome-screen');
+            const progressFill = document.getElementById('welcome-progress');
+            const enterBtn = document.getElementById('enter-platform');
+            
+            // Animate progress bar
+            setTimeout(() => {
+                progressFill.style.width = '100%';
+            }, 300);
+            
+            // Enter platform
+            enterBtn.addEventListener('click', () => {
+                welcomeScreen.classList.add('hidden');
+                setTimeout(() => {
+                    welcomeScreen.style.display = 'none';
+                }, 800);
+                showNotification('🚀 Welcome to FoundersHub Bharat Pro!');
+            });
+            
+            // Initialize counters
+            animateCounter('founders-count', 2847);
+            animateCounter('matches-count', 589);
+            animateCounter('startups-count', 214);
+            
+            // Initialize user state
+            updateAuthState();
+        });
+
+        // ===== NAVIGATION SYSTEM =====
+        const pages = document.querySelectorAll('.page');
+        const navLinks = document.querySelectorAll('.nav-links a, .mobile-nav-links a');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileNav = document.getElementById('mobile-nav');
+        const closeMobileNav = document.getElementById('close-mobile-nav');
+        const overlay = document.getElementById('overlay');
+        
+        // Navigation click handler
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const pageId = link.getAttribute('data-page');
+                
+                if (pageId) {
+                    // Update active states
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                    
+                    // Show selected page
+                    pages.forEach(page => {
+                        page.classList.remove('active');
+                        if (page.id === `${pageId}-page`) {
+                            page.classList.add('active');
+                            // Scroll to top
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }
+                    });
+                    
+                    // Close mobile nav if open
+                    mobileNav.classList.remove('active');
+                    overlay.classList.remove('active');
+                    
+                    showNotification(`Navigated to ${link.textContent}`);
+                }
+            });
+        });
+
+        // Mobile menu
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileNav.classList.add('active');
+            overlay.classList.add('active');
+        });
+
+        closeMobileNav.addEventListener('click', () => {
+            mobileNav.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        overlay.addEventListener('click', () => {
+            mobileNav.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        // ===== AUTHENTICATION =====
+        const signinBtn = document.getElementById('signin-btn');
+        const signupBtn = document.getElementById('signup-btn');
+        const mobileSigninBtn = document.getElementById('mobile-signin-btn');
+        const mobileSignupBtn = document.getElementById('mobile-signup-btn');
+        const signinModal = document.getElementById('signin-modal');
+        const signupModal = document.getElementById('signup-modal');
+        const signinSubmit = document.getElementById('signin-submit');
+        const signupSubmit = document.getElementById('signup-submit');
+        const switchToSignup = document.getElementById('switch-to-signup');
+        const switchToSignin = document.getElementById('switch-to-signin');
+        
+        // Open modals
+        [signinBtn, mobileSigninBtn].forEach(btn => {
+            btn?.addEventListener('click', () => {
+                signinModal.classList.add('active');
+            });
+        });
+        
+        [signupBtn, mobileSignupBtn].forEach(btn => {
+            btn?.addEventListener('click', () => {
+                signupModal.classList.add('active');
+            });
+        });
+        
+        // Switch between sign in/up
+        switchToSignup?.addEventListener('click', (e) => {
+            e.preventDefault();
+            signinModal.classList.remove('active');
+            signupModal.classList.add('active');
+        });
+        
+        switchToSignin?.addEventListener('click', (e) => {
+            e.preventDefault();
+            signupModal.classList.remove('active');
+            signinModal.classList.add('active');
+        });
+        
+        // Sign in
+        signinSubmit?.addEventListener('click', () => {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            if (!email || !password) {
+                showNotification('Please fill in all fields', 'error');
+                return;
+            }
+            
+            // Simulate authentication
+            currentUser = {
+                name: 'Alex Chen',
+                email: email,
+                role: 'Technical Founder',
+                avatar: 'A'
+            };
+            localStorage.setItem('founderhub_user', JSON.stringify(currentUser));
+            
+            signinModal.classList.remove('active');
+            updateAuthState();
+            showNotification('Successfully signed in!');
+            
+            // Navigate to dashboard
+            document.querySelector('[data-page="dashboard"]').click();
+        });
+        
+        // Sign up
+        signupSubmit?.addEventListener('click', () => {
+            const name = document.getElementById('signup-name').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            const role = document.getElementById('signup-role').value;
+            
+            if (!name || !email || !password || !role) {
+                showNotification('Please fill in all fields', 'error');
+                return;
+            }
+            
+            // Simulate registration
+            currentUser = {
+                name: name,
+                email: email,
+                role: role,
+                avatar: name.charAt(0).toUpperCase()
+            };
+            localStorage.setItem('founderhub_user', JSON.stringify(currentUser));
+            
+            signupModal.classList.remove('active');
+            updateAuthState();
+            showNotification('Account created successfully! Welcome to FoundersHub Bharat Pro!');
+            
+            // Navigate to dashboard
+            document.querySelector('[data-page="dashboard"]').click();
+        });
+        
+        function updateAuthState() {
+            const authButtons = document.querySelector('.auth-buttons');
+            const mobileAuthButtons = document.querySelector('.mobile-auth-buttons');
+            
+            if (currentUser) {
+                // Update user info
+                document.getElementById('dashboard-username').textContent = currentUser.name.split(' ')[0];
+                document.getElementById('user-name').textContent = currentUser.name;
+                document.getElementById('user-role').textContent = currentUser.role;
+                document.getElementById('user-avatar').textContent = currentUser.avatar;
+                document.getElementById('profile-fullname').textContent = currentUser.name;
+                document.getElementById('profile-avatar').textContent = currentUser.avatar;
+                
+                // Update auth buttons
+                authButtons.innerHTML = `
+                    <span style="margin-right: 15px; font-weight: 600;">Hi, ${currentUser.name.split(' ')[0]}!</span>
+                    <button class="btn btn-outline" id="logout-btn">Logout</button>
+                `;
+                
+                mobileAuthButtons.innerHTML = `
+                    <span style="padding: 12px; text-align: center; font-weight: 600;">Hi, ${currentUser.name.split(' ')[0]}!</span>
+                    <button class="btn btn-outline" id="mobile-logout-btn">Logout</button>
+                `;
+                
+                // Add logout handlers
+                document.getElementById('logout-btn')?.addEventListener('click', logout);
+                document.getElementById('mobile-logout-btn')?.addEventListener('click', logout);
+            }
+        }
+        
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('founderhub_user');
+            updateAuthState();
+            showNotification('Successfully logged out');
+            
+            // Reset auth buttons
+            const authButtons = document.querySelector('.auth-buttons');
+            const mobileAuthButtons = document.querySelector('.mobile-auth-buttons');
+            
+            authButtons.innerHTML = `
+                <button class="btn btn-secondary" id="signin-btn">Sign In</button>
+                <button class="btn btn-primary" id="signup-btn">Get Started Free</button>
+            `;
+            
+            mobileAuthButtons.innerHTML = `
+                <button class="btn btn-secondary" id="mobile-signin-btn">Sign In</button>
+                <button class="btn btn-primary" id="mobile-signup-btn">Get Started Free</button>
+            `;
+            
+            // Reattach event listeners
+            document.getElementById('signin-btn').addEventListener('click', () => signinModal.classList.add('active'));
+            document.getElementById('signup-btn').addEventListener('click', () => signupModal.classList.add('active'));
+            document.getElementById('mobile-signin-btn').addEventListener('click', () => signinModal.classList.add('active'));
+            document.getElementById('mobile-signup-btn').addEventListener('click', () => signupModal.classList.add('active'));
+            
+            // Navigate to home
+            document.querySelector('[data-page="home"]').click();
+        }
+
+        // ===== NOTIFICATION SYSTEM =====
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notification-text');
+            
+            notificationText.textContent = message;
+            notification.className = 'notification';
+            if (type !== 'success') {
+                notification.classList.add(type);
+            }
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+
+        // ===== MODAL SYSTEM =====
+        const modals = document.querySelectorAll('.modal');
+        const closeModalButtons = document.querySelectorAll('.close-modal, .btn-outline[data-modal]');
+        
+        // Close modals
+        closeModalButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const modalId = btn.getAttribute('data-modal');
+                if (modalId) {
+                    document.getElementById(modalId).classList.remove('active');
+                } else {
+                    btn.closest('.modal').classList.remove('active');
+                }
+            });
+        });
+        
+        // Close modal on outside click
+        modals.forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+        });
+        
+        // Close modal with ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                modals.forEach(modal => modal.classList.remove('active'));
+            }
+        });
+
+        // ===== HOME PAGE FUNCTIONS =====
+        document.getElementById('find-cofounder-btn')?.addEventListener('click', () => {
+            if (!currentUser) {
+                signupModal.classList.add('active');
+                showNotification('Please create an account to find co-founders');
+            } else {
+                document.querySelector('[data-page="discovery"]').click();
+            }
+        });
+        
+        document.getElementById('compatibility-quiz-btn')?.addEventListener('click', () => {
+            document.getElementById('quiz-modal').classList.add('active');
+        });
+
+        // ===== DASHBOARD FUNCTIONS =====
+        document.querySelectorAll('.connect-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const name = this.getAttribute('data-name');
+                this.textContent = 'Pending';
+                this.style.backgroundColor = '#9ca3af';
+                this.disabled = true;
+                showNotification(`Connection request sent to ${name}!`);
+            });
+        });
+        
+        document.getElementById('complete-profile-btn')?.addEventListener('click', () => {
+            let progress = parseInt(document.getElementById('profile-strength').textContent);
+            if (progress < 100) {
+                progress += 5;
+                if (progress > 100) progress = 100;
+                document.getElementById('profile-strength').textContent = progress;
+                document.getElementById('profile-progress').style.width = `${progress}%`;
+                showNotification('Profile progress updated!');
+            }
+        });
+
+        // ===== DISCOVERY PAGE FUNCTIONS =====
+        document.querySelectorAll('.say-hi-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (!currentUser) {
+                    signupModal.classList.add('active');
+                    showNotification('Please sign in to send messages');
+                    return;
+                }
+                
+                const name = this.getAttribute('data-name');
+                document.getElementById('sayhi-founder-name').textContent = name;
+                document.getElementById('sayhi-modal').classList.add('active');
+            });
+        });
+        
+        document.getElementById('send-message-btn')?.addEventListener('click', () => {
+            const message = document.getElementById('message-text').value;
+            const name = document.getElementById('sayhi-founder-name').textContent;
+            
+            if (!message.trim()) {
+                showNotification('Please enter a message', 'error');
+                return;
+            }
+            
+            document.getElementById('sayhi-modal').classList.remove('active');
+            document.getElementById('message-text').value = '';
+            showNotification(`Message sent to ${name}!`);
+        });
+
+        // ===== IDEA ROOM FUNCTIONS =====
+        document.getElementById('create-idea-btn')?.addEventListener('click', () => {
+            if (!currentUser) {
+                signupModal.classList.add('active');
+                showNotification('Please sign in to post ideas');
+                return;
+            }
+            document.getElementById('create-idea-modal').classList.add('active');
+        });
+        
+        document.getElementById('post-idea-btn')?.addEventListener('click', () => {
+            const title = document.getElementById('idea-title').value;
+            const category = document.getElementById('idea-category').value;
+            const description = document.getElementById('idea-description').value;
+            const aiAnalysis = document.getElementById('ai-analysis').checked;
+            
+            if (!title || !category || !description) {
+                showNotification('Please fill in all fields', 'error');
+                return;
+            }
+            
+            document.getElementById('create-idea-modal').classList.remove('active');
+            showNotification('Idea posted successfully!' + (aiAnalysis ? ' AI analysis in progress...' : ''));
+            
+            // Clear form
+            document.getElementById('idea-title').value = '';
+            document.getElementById('idea-category').value = '';
+            document.getElementById('idea-description').value = '';
+            document.getElementById('ai-analysis').checked = false;
+        });
+        
+        document.querySelectorAll('.like-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                const heart = this.querySelector('i');
+                const count = this.querySelector('.like-count');
+                
+                if (likedIdeas.includes(id)) {
+                    // Unlike
+                    likedIdeas = likedIdeas.filter(item => item !== id);
+                    heart.className = 'far fa-heart';
+                    count.textContent = parseInt(count.textContent) - 1;
+                    showNotification('Idea unliked');
+                } else {
+                    // Like
+                    likedIdeas.push(id);
+                    heart.className = 'fas fa-heart';
+                    count.textContent = parseInt(count.textContent) + 1;
+                    showNotification('Idea liked!');
+                }
+                
+                localStorage.setItem('liked_ideas', JSON.stringify(likedIdeas));
+            });
+        });
+        
+        // Initialize liked state
+        document.querySelectorAll('.like-btn').forEach(btn => {
+            const id = btn.getAttribute('data-id');
+            if (likedIdeas.includes(id)) {
+                btn.querySelector('i').className = 'fas fa-heart';
+            }
+        });
+
+        // ===== LEGAL KIT FUNCTIONS =====
+        document.querySelectorAll('.download-template').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const template = this.getAttribute('data-template');
+                
+                // Create a fake download
+                const content = `This is the ${template.replace('-', ' ')} template for FoundersHub Bharat Pro.\n\nThis is a simulated download. In a real app, this would download a .docx file.`;
+                const blob = new Blob([content], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${template}.txt`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                showNotification(`Downloading ${template.replace('-', ' ')} template...`);
+            });
+        });
+        
+        // Equity calculator
+        const founderASlider = document.getElementById('founder-a-contribution');
+        const founderBSlider = document.getElementById('founder-b-contribution');
+        const founderAValue = document.getElementById('founder-a-value');
+        const founderBValue = document.getElementById('founder-b-value');
+        const equityA = document.getElementById('equity-a');
+        const equityB = document.getElementById('equity-b');
+        const equityChart = document.querySelector('.equity-chart');
+        
+        function updateEquityCalculator() {
+            const a = parseInt(founderASlider.value);
+            const b = parseInt(founderBSlider.value);
+            const total = a + b;
+            
+            // Normalize to 100%
+            const normalizedA = Math.round((a / total) * 100);
+            const normalizedB = 100 - normalizedA;
+            
+            founderAValue.textContent = `${a}%`;
+            founderBValue.textContent = `${b}%`;
+            equityA.textContent = `${normalizedA}%`;
+            equityB.textContent = `${normalizedB}%`;
+            
+            // Update chart
+            equityChart.style.background = `conic-gradient(
+                var(--primary-blue) 0% ${normalizedA}%,
+                var(--accent-green) ${normalizedA}% 100%
+            )`;
+        }
+        
+        founderASlider?.addEventListener('input', updateEquityCalculator);
+        founderBSlider?.addEventListener('input', updateEquityCalculator);
+        
+        document.getElementById('download-equity-summary')?.addEventListener('click', () => {
+            const content = `Equity Split Summary\n
+Founder A Contribution: ${founderASlider.value}%
+Founder B Contribution: ${founderBSlider.value}%
+Recommended Split:
+- Founder A: ${equityA.textContent}
+- Founder B: ${equityB.textContent}
+\nCalculated on FoundersHub Bharat Pro`;
+            
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'equity-split-summary.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showNotification('Equity summary downloaded!');
+        });
+
+        // ===== INVESTOR MATCHMAKING FUNCTIONS =====
+        document.querySelectorAll('.request-intro-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (!currentUser) {
+                    signupModal.classList.add('active');
+                    showNotification('Please sign in to request introductions');
+                    return;
+                }
+                
+                const name = this.getAttribute('data-name');
+                document.getElementById('intro-investor-name').textContent = name;
+                document.getElementById('request-intro-modal').classList.add('active');
+            });
+        });
+        
+        document.getElementById('send-intro-request')?.addEventListener('click', () => {
+            const message = document.getElementById('intro-message').value;
+            const stage = document.getElementById('intro-stage').value;
+            const name = document.getElementById('intro-investor-name').textContent;
+            
+            if (!message.trim()) {
+                showNotification('Please enter an introduction message', 'error');
+                return;
+            }
+            
+            document.getElementById('request-intro-modal').classList.remove('active');
+            document.getElementById('intro-message').value = '';
+            showNotification(`Introduction request sent to ${name}!`);
+        });
+        
+        // Pitch deck upload
+        const uploadArea = document.getElementById('pitch-deck-upload');
+        const fileInput = document.getElementById('pitch-deck-file');
+        const uploadedFileName = document.getElementById('uploaded-file-name');
+        
+        uploadArea?.addEventListener('click', () => {
+            fileInput.click();
+        });
+        
+        fileInput?.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                const file = e.target.files[0];
+                uploadedFileName.textContent = `📄 ${file.name}`;
+                uploadedFileName.style.display = 'block';
+                showNotification('Pitch deck uploaded successfully!');
+            }
+        });
+
+        // ===== TEAM BUILDER FUNCTIONS =====
+        document.getElementById('create-team-post-btn')?.addEventListener('click', () => {
+            if (!currentUser) {
+                signupModal.classList.add('active');
+                showNotification('Please sign in to create team posts');
+                return;
+            }
+            showNotification('Team post creation modal would open here');
+        });
+        
+        document.querySelectorAll('.invite-team-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const name = this.getAttribute('data-name');
+                showNotification(`Invitation sent to ${name}!`);
+                this.textContent = 'Invited';
+                this.disabled = true;
+            });
+        });
+
+        // ===== PROFILE PAGE FUNCTIONS =====
+        document.getElementById('edit-profile-btn')?.addEventListener('click', () => {
+            if (!currentUser) {
+                signupModal.classList.add('active');
+                showNotification('Please sign in to edit your profile');
+                return;
+            }
+            document.getElementById('edit-profile-modal').classList.add('active');
+        });
+        
+        document.getElementById('save-profile-btn')?.addEventListener('click', () => {
+            const name = document.getElementById('edit-name').value;
+            const role = document.getElementById('edit-role').value;
+            const location = document.getElementById('edit-location').value;
+            const bio = document.getElementById('edit-bio').value;
+            const stage = document.getElementById('edit-stage').value;
+            
+            // Update UI
+            document.getElementById('profile-fullname').textContent = name;
+            document.getElementById('profile-avatar').textContent = name.charAt(0).toUpperCase();
+            document.querySelector('.profile-info .founder-role').textContent = `${role} • ${location}`;
+            document.querySelector('.profile-info p').textContent = bio;
+            document.querySelector('.dna-item:nth-child(1) .dna-value').textContent = stage.charAt(0).toUpperCase() + stage.slice(1);
+            
+            // Update user data
+            if (currentUser) {
+                currentUser.name = name;
+                currentUser.role = role;
+                currentUser.avatar = name.charAt(0).toUpperCase();
+                localStorage.setItem('founderhub_user', JSON.stringify(currentUser));
+                updateAuthState();
+            }
+            
+            document.getElementById('edit-profile-modal').classList.remove('active');
+            showNotification('Profile updated successfully!');
+        });
+
+        // ===== FEATURES PAGE FUNCTIONS =====
+        document.querySelectorAll('.try-feature').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (!currentUser && !this.getAttribute('data-feature').includes('waitlist')) {
+                    signupModal.classList.add('active');
+                    showNotification('Please sign in to try this feature');
+                    return;
+                }
+                
+                const feature = this.getAttribute('data-feature');
+                const featureNames = {
+                    'ai-score': 'AI Compatibility Score',
+                    'virtual-dating': 'Virtual Co-Founder Dating',
+                    'equity-tool': 'Equity Split Calculator',
+                    'skill-marketplace': 'Skill Exchange Marketplace',
+                    'legal-assistant': 'Legal AI Assistant',
+                    'wellness': 'Wellness Center'
+                };
+                
+                if (feature === 'ai-score') {
+                    setTimeout(() => {
+                        showNotification('🤖 AI analyzing your profile... Compatibility score: 94%');
+                    }, 500);
+                } else if (feature === 'equity-tool') {
+                    document.querySelector('[data-page="legal-kit"]').click();
+                    setTimeout(() => {
+                        window.scrollTo({ top: document.querySelector('.calculator-container').offsetTop - 100, behavior: 'smooth' });
+                        showNotification('📊 Equity calculator loaded. Adjust sliders to model different split scenarios.');
+                    }, 300);
+                } else if (feature === 'legal-assistant') {
+                    showNotification('Added to Legal AI Assistant waitlist! We\'ll notify you when it launches.');
+                } else {
+                    showNotification(`Opening ${featureNames[feature] || 'Feature'}...`);
+                }
+            });
+        });
+
+        // ===== PRICING PAGE FUNCTIONS =====
+        document.querySelectorAll('.signup-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const plan = this.getAttribute('data-plan');
+                
+                if (!currentUser) {
+                    signupModal.classList.add('active');
+                    showNotification(`Sign up to get started with the ${plan} plan`);
+                    return;
+                }
+                
+                if (plan === 'venture') {
+                    showNotification('Contact form would open for Venture plan');
+                } else if (plan === 'startup') {
+                    showNotification('Starting 7-day free trial of Startup plan...');
+                } else {
+                    showNotification('Enjoy your free Founder plan!');
+                }
+            });
+        });
+        
+        document.getElementById('claim-offer-btn')?.addEventListener('click', () => {
+            if (!currentUser) {
+                signupModal.classList.add('active');
+                showNotification('Please sign up to claim the offer');
+                return;
+            }
+            
+            offerActivated = true;
+            localStorage.setItem('offer_activated', 'true');
+            
+            // Update pricing cards
+            document.querySelectorAll('.price').forEach(price => {
+                const original = price.textContent;
+                if (original.includes('₹999')) {
+                    price.innerHTML = '₹499<span>/month</span>';
+                } else if (original.includes('₹2,499')) {
+                    price.innerHTML = '₹1,249<span>/month</span>';
+                }
+            });
+            
+            showNotification('🎉 Special offer claimed! 50% discount applied to your account.');
+        });
+        
+        // Apply offer if already activated
+        if (offerActivated) {
+            document.querySelectorAll('.price').forEach(price => {
+                const original = price.textContent;
+                if (original.includes('₹999')) {
+                    price.innerHTML = '₹499<span>/month</span>';
+                } else if (original.includes('₹2,499')) {
+                    price.innerHTML = '₹1,249<span>/month</span>';
+                }
+            });
+        }
+
+        // ===== FOOTER FUNCTIONS =====
+        ['twitter-icon', 'linkedin-icon', 'instagram-icon'].forEach(id => {
+            document.getElementById(id)?.addEventListener('click', () => {
+                const platform = id.split('-')[0];
+                showNotification(`Opening our ${platform.charAt(0).toUpperCase() + platform.slice(1)} page...`);
+            });
+        });
+
+        // ===== UTILITY FUNCTIONS =====
+        function animateCounter(elementId, targetValue, duration = 2000) {
+            const element = document.getElementById(elementId);
+            if (!element) return;
+            
+            let startValue = 0;
+            const increment = targetValue / (duration / 16);
+            let currentValue = startValue;
+            
+            const timer = setInterval(() => {
+                currentValue += increment;
+                if (currentValue >= targetValue) {
+                    currentValue = targetValue;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.floor(currentValue).toLocaleString();
+            }, 16);
+        }
+
+        // ===== INITIALIZE EVERYTHING =====
+        function initializeApp() {
+            // Add micro-interactions
+            document.querySelectorAll('.btn').forEach(btn => {
+                btn.addEventListener('mousedown', () => {
+                    btn.style.transform = 'scale(0.98)';
+                });
+                btn.addEventListener('mouseup', () => {
+                    btn.style.transform = '';
+                });
+                btn.addEventListener('mouseleave', () => {
+                    btn.style.transform = '';
+                });
+            });
+            
+            // Add hover effects to cards
+            document.querySelectorAll('.feature-card, .founder-card, .idea-card, .legal-card, .investor-card, .role-card, .pricing-card').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-5px)';
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = '';
+                });
+            });
+            
+            // Initialize equity calculator
+            if (founderASlider) {
+                updateEquityCalculator();
+            }
+            
+            // Show welcome message
+            setTimeout(() => {
+                if (!currentUser) {
+                    showNotification('Welcome! Sign up for free to start finding your co-founder.');
+                }
+            }, 2000);
+        }
+        
+        // Run initialization
+        initializeApp();
+    </script>
+</body>
+</html>
